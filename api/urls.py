@@ -1,10 +1,6 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import TaskViewSet
-
-router = DefaultRouter()
-router.register(r'tasks', TaskViewSet)
+from django.urls import path
+from .views import HelloWorldView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('hello/', HelloWorldView.as_view(), name='hello-world'),  #Ahora el endpoint será: http://127.0.0.1:8000/api/hello
 ]

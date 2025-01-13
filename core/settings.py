@@ -2,6 +2,8 @@ from pathlib import Path
 import os
 from datetime import timedelta
 import environ
+from decouple import config
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -90,11 +92,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
+SECRET_KEY = config('SECRET_KEY')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')  # Carga la URL de la base de datos desde .env
+    )
 }
 
 PASSWORD_HASHERS = [
